@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTracker Pro - Advanced Analytics</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>TimeTracker Pro</h1>
+                <div class="status-indicator" id="statusIndicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Active</span>
+                </div>
+            </div>
+            <div class="productivity-score" id="productivityScore">
+                <span class="score-label">Productivity</span>
+                <span class="score-value">0%</span>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="overview">Overview</button>
+            <button class="tab-button" data-tab="analytics">Analytics</button>
+            <button class="tab-button" data-tab="insights">Insights</button>
+            <button class="tab-button" data-tab="settings">Settings</button>
+        </div>
+
+        <div class="tab-content">
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-panel active">
+                <div class="current-session">
+                    <h3>Current Session</h3>
+                    <div class="session-info" id="currentSessionInfo">
+                        <div class="session-site" id="currentSite">Loading...</div>
+                        <div class="session-category" id="currentCategory">-</div>
+                        <div class="session-time" id="currentTime">0m 0s</div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="todayTime">0h 0m</div>
+                            <div class="stat-label">Today's Time</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="todaySessions">0</div>
+                            <div class="stat-label">Sessions</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="productiveTime">0h 0m</div>
+                            <div class="stat-label">Productive</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚠️</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="unproductiveTime">0h 0m</div>
+                            <div class="stat-label">Unproductive</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-breakdown">
+                    <h3>Category Breakdown</h3>
+                    <div class="category-list" id="categoryList">
+                        <!-- Categories will be populated here -->
+                    </div>
+                </div>
+
+                <div class="top-sites">
+                    <h3>Top Sites Today</h3>
+                    <div class="sites-list" id="topSitesList">
+                        <!-- Top sites will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Tab -->
+            <div id="analytics" class="tab-panel">
+                <div class="analytics-header">
+                    <h3>Detailed Analytics</h3>
+                    <div class="time-period">
+                        <select id="timePeriod">
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="timeChart" width="300" height="200"></canvas>
+                </div>
+
+                <div class="detailed-stats">
+                    <div class="stat-section">
+                        <h4>Session Analysis</h4>
+                        <div class="stat-row">
+                            <span>Average Session Duration:</span>
+                            <span id="avgSessionDuration">0m 0s</span>
+                        </div>
+                        <div class="stat-row">
+                            <span>Longest Session:</span>
+                            <span id="longestSession">0m 0s</span>
+                        </div>
+                        <div class="stat-row">
+                            <span>Most Active Hour:</span>
+                            <span id="mostActiveHour">-</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-section">
+                        <h4>Productivity Metrics</h4>
+                        <div class="stat-row">
+                            <span>Focus Score:</span>
+                            <span id="focusScore">0%</span>
+                        </div>
+                        <div class="stat-row">
+                            <span>Distraction Level:</span>
+                            <span id="distractionLevel">Low</span>
+                        </div>
+                        <div class="stat-row">
+                            <span>Goal Progress:</span>
+                            <span id="goalProgress">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insights Tab -->
+            <div id="insights" class="tab-panel">
+                <div class="insights-header">
+                    <h3>Smart Insights</h3>
+                    <button class="refresh-btn" id="refreshInsights">🔄</button>
+                </div>
+
+                <div class="alerts-section">
+                    <h4>Recent Alerts</h4>
+                    <div class="alerts-list" id="alertsList">
+                        <!-- Alerts will be populated here -->
+                    </div>
+                </div>
+
+                <div class="insights-section">
+                    <h4>Recommendations</h4>
+                    <div class="insights-list" id="insightsList">
+                        <!-- Insights will be populated here -->
+                    </div>
+                </div>
+
+                <div class="patterns-section">
+                    <h4>Usage Patterns</h4>
+                    <div class="patterns-list" id="patternsList">
+                        <!-- Patterns will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings" class="tab-panel">
+                <div class="settings-section">
+                    <h3>Tracking Settings</h3>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="enableTracking" checked>
+                            <span>Enable Time Tracking</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="enableNotifications" checked>
+                            <span>Enable Notifications</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="enableAlerts" checked>
+                            <span>Enable Smart Alerts</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Daily Goals</h3>
+                    <div class="goal-setting">
+                        <label for="productiveGoal">Productive Time Goal (hours):</label>
+                        <input type="number" id="productiveGoal" value="4" min="1" max="12">
+                    </div>
+                    <div class="goal-setting">
+                        <label for="unproductiveLimit">Unproductive Time Limit (hours):</label>
+                        <input type="number" id="unproductiveLimit" value="2" min="0" max="8">
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Data Management</h3>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="exportData">📊 Export Data</button>
+                        <button class="btn btn-secondary" id="clearData">🗑️ Clear Data</button>
+                        <button class="btn btn-success" id="saveSettings">💾 Save Settings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

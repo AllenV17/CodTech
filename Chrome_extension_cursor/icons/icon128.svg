@@ -1,0 +1,7 @@
+<!-- Simple SVG icon for Chrome extension -->
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" rx="20" fill="#667eea"/>
+  <path d="M64 16L96 48H64V16Z" fill="white"/>
+  <path d="M64 48L32 80H64V48Z" fill="white"/>
+  <circle cx="64" cy="96" r="16" fill="white"/>
+</svg>
